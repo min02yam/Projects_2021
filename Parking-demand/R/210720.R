@@ -6,30 +6,30 @@ getwd()
 setwd("C:/dacon/re")
 
 #################################
-#¹üÁÖÇü ¶óº§¸µÇÑ TRAIN ¾÷·Îµå
+#ë²”ì£¼í˜• ë¼ë²¨ë§í•œ TRAIN ì—…ë¡œë“œ
 train<-read.table("train.label2.csv", sep=',', header=T)
 #################################
-#´ÜÁö ÄÚµåº° ±×·ìÈ­ 
+#ë‹¨ì§€ ì½”ë“œë³„ ê·¸ë£¹í™” 
 
 train %>% group_by(code) %>% summarise(tot_area_pop=sum(area_pop))
 ##################################################################
-##test data  (**C2411 /C2253 ÀÚ°İÀ¯Çü °áÃø)
+##test data  (**C2411 /C2253 ìê²©ìœ í˜• ê²°ì¸¡)
 test<-read.table("test.csv", sep=',', header=T)
 summary(test)   
 str(test)
-#1# fee_deposit , fee_rent Á¤¼ö·Î º¯°æ 
+#1# fee_deposit , fee_rent ì •ìˆ˜ë¡œ ë³€ê²½ 
 test$fee_deposit<-as.numeric(test$fee_deposit)
 test$fee_rent<-as.numeric(test$fee_rent)
 summary(test)
 
 #2# bus potential outlier
 table(test$bus)
-quantile(test$bus, probs=0.99)   #99ÄöÅ¸ÀÏ°ª 19
+quantile(test$bus, probs=0.99)   #99í€€íƒ€ì¼ê°’ 19
 test$bus<-ifelse(test$bus>=20, 19, test$bus)
 table(test$bus)
 summary(test)
 
-#3#(*test¸¸) type_qual NAÃ³¸® À§ÇÏ¿© ¸ÕÀú labeling
+#3#(*testë§Œ) type_qual NAì²˜ë¦¬ ìœ„í•˜ì—¬ ë¨¼ì € labeling
 table(test$type_qual)
 test$type_qual<-ifelse(test$type_qual=="A",1,(
 		ifelse(test$type_qual=="B",2, (
@@ -46,12 +46,12 @@ ifelse(test$type_qual=="L",12,(
 ifelse(test$type_qual=="M" |  test$type_qual=="O"  ,13,(
 ifelse(test$type_qual=="N", 14, NA)
 )  )    )))) )  )))))) )  )))    )))))))))
-write.csv(test, "test0720.csv", row.names=F)  #NAÆ÷ÇÔ
+write.csv(test, "test0720.csv", row.names=F)  #NAí¬í•¨
 
 
 
 
-#3#fee_deposit, fee_rent, sub ,type_qual NA°ü·Ã
+#3#fee_deposit, fee_rent, sub ,type_qual NAê´€ë ¨
 
 m=20
 test.result<-mice( test   , m=m, method = "sample", seed=0049, print=FALSE)
@@ -75,25 +75,25 @@ sum(is.na(train))
 
 
 ###############5# categorical variables 
-#(1)# test$type_as<-ifelse(test$type_as=="¾ÆÆÄÆ®",  0  , 1 )
+#(1)# test$type_as<-ifelse(test$type_as=="ì•„íŒŒíŠ¸",  0  , 1 )
 table(test$type_as)
 #(2)#
 table(test$region)
-test$region<-ifelse(test$region=="°­¿øµµ",1,(
-		ifelse(test$region=="°æ±âµµ",2, (
-		ifelse(test$region=="°æ»ó³²µµ",3, (
-		ifelse(test$region=="°æ»óºÏµµ",4, (
-		ifelse(test$region=="±¤ÁÖ±¤¿ª½Ã",5, (
-ifelse(test$region=="´ë±¸±¤¿ª½Ã",6,(
-ifelse(test$region=="´ëÀü±¤¿ª½Ã",7, (
-ifelse(test$region=="ºÎ»ê±¤¿ª½Ã",8, (
-ifelse(test$region=="¼­¿ïÆ¯º°½Ã",9, 
-(ifelse(test$region=="¼¼Á¾Æ¯º°ÀÚÄ¡½Ã",10, (
-ifelse(test$region=="¿ï»ê±¤¿ª½Ã",11,
-ifelse(test$region=="Àü¶ó³²µµ",12,(
-ifelse(test$region=="Àü¶óºÏµµ",13,
-ifelse(test$region=="Á¦ÁÖÆ¯º°ÀÚÄ¡µµ",14,
-ifelse(test$region=="ÃæÃ»³²µµ",15, 
+test$region<-ifelse(test$region=="ê°•ì›ë„",1,(
+		ifelse(test$region=="ê²½ê¸°ë„",2, (
+		ifelse(test$region=="ê²½ìƒë‚¨ë„",3, (
+		ifelse(test$region=="ê²½ìƒë¶ë„",4, (
+		ifelse(test$region=="ê´‘ì£¼ê´‘ì—­ì‹œ",5, (
+ifelse(test$region=="ëŒ€êµ¬ê´‘ì—­ì‹œ",6,(
+ifelse(test$region=="ëŒ€ì „ê´‘ì—­ì‹œ",7, (
+ifelse(test$region=="ë¶€ì‚°ê´‘ì—­ì‹œ",8, (
+ifelse(test$region=="ì„œìš¸íŠ¹ë³„ì‹œ",9, 
+(ifelse(test$region=="ì„¸ì¢…íŠ¹ë³„ìì¹˜ì‹œ",10, (
+ifelse(test$region=="ìš¸ì‚°ê´‘ì—­ì‹œ",11,
+ifelse(test$region=="ì „ë¼ë‚¨ë„",12,(
+ifelse(test$region=="ì „ë¼ë¶ë„",13,
+ifelse(test$region=="ì œì£¼íŠ¹ë³„ìì¹˜ë„",14,
+ifelse(test$region=="ì¶©ì²­ë‚¨ë„",15, 
 16   )  )    )))) )  )))))) )
  )))))
  )))
@@ -101,15 +101,15 @@ ifelse(test$region=="ÃæÃ»³²µµ",15,
  )
 #(3)#$type_im  
 table(test$type_im)
-test$type_im<-ifelse(test$type_im=="°ø°øºĞ¾ç",1,(
-		ifelse(test$type_im=="°ø°øÀÓ´ë(10³â)",2, (
-		ifelse(test$type_im=="°ø°øÀÓ´ë(50³â)",3, (
-		ifelse(test$type_im=="°ø°øÀÓ´ë(5³â)",4, (
-		ifelse(test$type_im=="°ø°øÀÓ´ë(ºĞ³³)",5, (
-ifelse(test$type_im=="±¹¹ÎÀÓ´ë",6,(
-ifelse(test$type_im=="¿µ±¸ÀÓ´ë",7, (
-ifelse(test$type_im=="ÀÓ´ë»ó°¡",8, (
-ifelse(test$type_im=="Àå±âÀü¼¼",9, 10) )))))))))
+test$type_im<-ifelse(test$type_im=="ê³µê³µë¶„ì–‘",1,(
+		ifelse(test$type_im=="ê³µê³µì„ëŒ€(10ë…„)",2, (
+		ifelse(test$type_im=="ê³µê³µì„ëŒ€(50ë…„)",3, (
+		ifelse(test$type_im=="ê³µê³µì„ëŒ€(5ë…„)",4, (
+		ifelse(test$type_im=="ê³µê³µì„ëŒ€(ë¶„ë‚©)",5, (
+ifelse(test$type_im=="êµ­ë¯¼ì„ëŒ€",6,(
+ifelse(test$type_im=="ì˜êµ¬ì„ëŒ€",7, (
+ifelse(test$type_im=="ì„ëŒ€ìƒê°€",8, (
+ifelse(test$type_im=="ì¥ê¸°ì „ì„¸",9, 10) )))))))))
  )))
  )))
 )
@@ -121,9 +121,9 @@ train.lm<-lm(target~tot_pop+type_as+region+type_im+area+area_pop+num_empty+type_
 
 par( mfrow=c(2,2) ) 
 plot(train.lm)
-#2498, 2497Çà potential outlier ÃßÁ¤ (C1363)
+#2498, 2497í–‰ potential outlier ì¶”ì • (C1363)
 train[2498,]
-#(1)¾È¾ø¾Ö°í, AIC
+#(1)ì•ˆì—†ì• ê³ , AIC
 step.backward = step(train.lm, direction='backward') # AIC=30665.16
 
 step.stepwise = step(train.lm, direction='both')
@@ -142,7 +142,7 @@ write.csv(predict0720, "predict0720.csv", row.names=F)
 
 
 ######################
-##########´ÜÁö ÄÚµåº° ±×·ìÈ­ 
+##########ë‹¨ì§€ ì½”ë“œë³„ ê·¸ë£¹í™” 
 train %>% group_by(code) %>% summarise(tot_area_pop=sum(area_pop))
 
 predict<-read.table("predict0720_ing.csv", sep=',', header=T")
@@ -150,27 +150,27 @@ predict.Med<-predict%>% group_by(code) %>% summarise(Median=median(target))
 write.csv(predict.Med, "predict.Med.csv", row.names=F)
 predict.Mean<-predict%>% group_by(code) %>% summarise(maen=mean(target))
 write.csv(predict.Mean, "predict.mean.csv", row.names=F)
-#meanº¸´Ù´Â Median
+#meanë³´ë‹¤ëŠ” Median
 
 #########################################################
-##ageº¯¼ö 
+##ageë³€ìˆ˜ 
 age<-read.table("age_gender_info.csv", sep=',', header=T)
 table(age$region)
-age$region<-ifelse(age$region=="°­¿øµµ",1,(
-		ifelse(age$region=="°æ±âµµ",2, (
-		ifelse(age$region=="°æ»ó³²µµ",3, (
-		ifelse(age$region=="°æ»óºÏµµ",4, (
-		ifelse(age$region=="±¤ÁÖ±¤¿ª½Ã",5, (
-ifelse(age$region=="´ë±¸±¤¿ª½Ã",6,(
-ifelse(age$region=="´ëÀü±¤¿ª½Ã",7, (
-ifelse(age$region=="ºÎ»ê±¤¿ª½Ã",8, (
-ifelse(age$region=="¼­¿ïÆ¯º°½Ã",9, 
-(ifelse(age$region=="¼¼Á¾Æ¯º°ÀÚÄ¡½Ã",10, (
-ifelse(age$region=="¿ï»ê±¤¿ª½Ã",11,
-ifelse(age$region=="Àü¶ó³²µµ",12,(
-ifelse(age$region=="Àü¶óºÏµµ",13,
-ifelse(age$region=="Á¦ÁÖÆ¯º°ÀÚÄ¡µµ",14,
-ifelse(age$region=="ÃæÃ»³²µµ",15, 
+age$region<-ifelse(age$region=="ê°•ì›ë„",1,(
+		ifelse(age$region=="ê²½ê¸°ë„",2, (
+		ifelse(age$region=="ê²½ìƒë‚¨ë„",3, (
+		ifelse(age$region=="ê²½ìƒë¶ë„",4, (
+		ifelse(age$region=="ê´‘ì£¼ê´‘ì—­ì‹œ",5, (
+ifelse(age$region=="ëŒ€êµ¬ê´‘ì—­ì‹œ",6,(
+ifelse(age$region=="ëŒ€ì „ê´‘ì—­ì‹œ",7, (
+ifelse(age$region=="ë¶€ì‚°ê´‘ì—­ì‹œ",8, (
+ifelse(age$region=="ì„œìš¸íŠ¹ë³„ì‹œ",9, 
+(ifelse(age$region=="ì„¸ì¢…íŠ¹ë³„ìì¹˜ì‹œ",10, (
+ifelse(age$region=="ìš¸ì‚°ê´‘ì—­ì‹œ",11,
+ifelse(age$region=="ì „ë¼ë‚¨ë„",12,(
+ifelse(age$region=="ì „ë¼ë¶ë„",13,
+ifelse(age$region=="ì œì£¼íŠ¹ë³„ìì¹˜ë„",14,
+ifelse(age$region=="ì¶©ì²­ë‚¨ë„",15, 
 16   )  )    )))) )  )))))) )
  )))))
  )))
@@ -187,7 +187,7 @@ write.csv(test.join, "test.join.csv", row.names=F)
 str(train.join)
 age.cor<-cor(train.join[,c(15:37)])
 corrplot(age.cor, method="number",  type = "lower" ,addCoef.col = "black" ,  tl.col = "black", tl.srt = 45, diag = F) 
-#»ó°ü°è¼ö ³ôÀº °Íµé·Î ´Ù½Ã »õ·Î¿î º¯¼ö ¸¸µê 
+#ìƒê´€ê³„ìˆ˜ ë†’ì€ ê²ƒë“¤ë¡œ ë‹¤ì‹œ ìƒˆë¡œìš´ ë³€ìˆ˜ ë§Œë“¦ 
 #L1040	X10	X20	X30	F50 M50	6080	X90	F100 M100
 
 
@@ -246,7 +246,7 @@ plot(train.lm1)
 train.step.forward.BIC = step(lm(target ~ 1, train),
 list(upper = ~ tot_pop + region + type_im + num_empty + type_qual
     +fee_deposit + sub + bus + num_park + F50 + M50 + F100 + M100
-    +L1040 + X10 + X20 + X30 + X6080 + X90, train), direction='both', k=log(2925))   #BIC°ª À§º¸´Ù Å­.
+    +L1040 + X10 + X20 + X30 + X6080 + X90, train), direction='both', k=log(2925))   #BICê°’ ìœ„ë³´ë‹¤ í¼.
 
 
 
@@ -269,7 +269,7 @@ write.csv(predict.Med, "predict.JOIN.Med.csv", row.names=F)
 predict.Mean<-predict%>% group_by(code) %>% summarise(maen=mean(target))
 write.csv(predict.Mean, "predict.mean.csv", row.names=F)
 
-##################################¼ø¼­ ¹Ù²¸¼­ AGGREGATE·Î ¹Ù²ã¼­ ´Ù½Ã ÇÔ
+##################################ìˆœì„œ ë°”ê»´ì„œ AGGREGATEë¡œ ë°”ê¿”ì„œ ë‹¤ì‹œ í•¨
 predict.agg<-aggregate(target~code,predict, median)
 write.csv(predict.agg, "predict.agg.csv", row.names=F)
 
@@ -282,7 +282,7 @@ head(predict.tap,5)
 head(predict)
 
 
-####submission ±âÁØÀ¸·Î º´ÇÔ
+####submission ê¸°ì¤€ìœ¼ë¡œ ë³‘í•¨
 sub<-read.table("sample_submission.csv",sep=',', header=T )
 pred<-read.table("predict.agg.csv",sep=',', header=T )
 pred0720.fi<-left_join(sub,pred,by='code')
