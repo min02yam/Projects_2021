@@ -3,7 +3,7 @@ getwd()
 setwd("C:/bigcon")
 
 data<-read.csv("EDA.csv")
-##eda¿¡¼­ ½ºÄÉÀÏÀÌ ´Ù¸¥°É ºÃÀ½
+##edaì—ì„œ ìŠ¤ì¼€ì¼ì´ ë‹¤ë¥¸ê±¸ ë´¤ìŒ
 par(mfcol=c(2,3))
 for (j in 1:3) { 
   boxplot(data[,j] , main=names(data)[j]  )  
@@ -22,55 +22,55 @@ str(train.scale)
 summary(train.scale)
 #################################
 #######################################
-#########½Ã³ª¸®¿À1 ¾Æ¿ô¶óÀÌ¾î º¸Á¤ÇÏÁö ¾ÊÀ½############
-##1.»ó°ü°è¼ö
+#########ì‹œë‚˜ë¦¬ì˜¤1 ì•„ì›ƒë¼ì´ì–´ ë³´ì •í•˜ì§€ ì•ŠìŒ############
+##1.ìƒê´€ê³„ìˆ˜
 install.packages("corrplot")
 library(corrplot)
 cor<-cor(train.scale)
 corrplot(cor, method="number",  type = "lower" ,addCoef.col = "black" ,  tl.col = "black", tl.srt = 45, diag = F)
 
 
-##2. ÁÖ¼ººÐ ºÐ¼®
+##2. ì£¼ì„±ë¶„ ë¶„ì„
 install.packages("psych")
  library(psych)
-#(1) ¼ººÐ ÃßÃâ
+#(1) ì„±ë¶„ ì¶”ì¶œ
 pca<-principal(train.scale[,-1], rotate="none")   ;  pca
-#(2) ³²±æ ¼ººÐ ¼ö °áÁ¤  -> 3°³
+#(2) ë‚¨ê¸¸ ì„±ë¶„ ìˆ˜ ê²°ì •  -> 3ê°œ
 plot(pca$values, type="b", ylab="Eigenvalues", xlabs="Component") 
-#(3)³²Àº ¼ººÐ È¸Àü
+#(3)ë‚¨ì€ ì„±ë¶„ íšŒì „
 pca.rotate<-principal(train.scale[,-1], nfactors=3, rotate="varimax" ) ; pca.rotate 
-#°¢ ¼ººÐ ±â¿©µµ ³ôÀº º¯¼ö È®ÀÎ ½ºÅ©¸® ÇÃ¶ù¿¡¼­ 3·Î Á¤ÇÑ ÀÌÀ¯
-#(º¯È­À²ÀÌ ÁÙ¾îµå´Â ÁöÁ¡, ÀÌ ¼ººÐÀ» Ãß°¡ÇÔÀ¸·Î¼­ ºÐ»êÀÇ Áõ°¡¿¡ Å« Â÷ÀÌ¸¦ º¸ÀÌÁö ¾ÊÀ½), 
-#nfacror2,3,4 ºñ±³ ÇßÀ»¶§ 4°¡ ((rmsr°ªÀÌ °¡Àå ÀÛÀ¸¸é¼­)), µ¿½Ã¿¡ Ä«ÀÌ½ºÄù¾î °ªÀÇ ÇÇº§·ç°¡ °¡Àå ÀÛ¾ÒÀ½.
-#°¢ ¼ººÐ ±â¿©µµ ³ôÀº º¯¼ö È®ÀÎ
-#(3)È¸ÀüµÈ °á°ú ÇØ¼®
-#°¢5°³ÀÇ ¼ººÐ¿¡ °üÇÑ º¯¼öÀÇ ±â¿©µµ, ¼ººÐ1Àº - ¿Í - º¯¼öÀÇ ¼ººÐ¿¡ °üÇÑ ±â¿©µµ°¡ ³ôÀº ¾çÀÇ°ª
-#(4)¿äÀÎÁ¡¼ö»ý¼º: °üÂû°ªÀÇ º¯¼öÀÇ °ª*±× º¯¼öÀÇ ¼ººÐ¿¡ °üÇÑ ±â¿©µµ: °¢ °üÂû°ªÀÌ È¸ÀüµÈ ¼ººÐ°ú °ü·Ã ÀÖ´Â Á¤µµ
+#ê° ì„±ë¶„ ê¸°ì—¬ë„ ë†’ì€ ë³€ìˆ˜ í™•ì¸ ìŠ¤í¬ë¦¬ í”Œëžì—ì„œ 3ë¡œ ì •í•œ ì´ìœ 
+#(ë³€í™”ìœ¨ì´ ì¤„ì–´ë“œëŠ” ì§€ì , ì´ ì„±ë¶„ì„ ì¶”ê°€í•¨ìœ¼ë¡œì„œ ë¶„ì‚°ì˜ ì¦ê°€ì— í° ì°¨ì´ë¥¼ ë³´ì´ì§€ ì•ŠìŒ), 
+#nfacror2,3,4 ë¹„êµ í–ˆì„ë•Œ 4ê°€ ((rmsrê°’ì´ ê°€ìž¥ ìž‘ìœ¼ë©´ì„œ)), ë™ì‹œì— ì¹´ì´ìŠ¤í€˜ì–´ ê°’ì˜ í”¼ë²¨ë£¨ê°€ ê°€ìž¥ ìž‘ì•˜ìŒ.
+#ê° ì„±ë¶„ ê¸°ì—¬ë„ ë†’ì€ ë³€ìˆ˜ í™•ì¸
+#(3)íšŒì „ëœ ê²°ê³¼ í•´ì„
+#ê°5ê°œì˜ ì„±ë¶„ì— ê´€í•œ ë³€ìˆ˜ì˜ ê¸°ì—¬ë„, ì„±ë¶„1ì€ - ì™€ - ë³€ìˆ˜ì˜ ì„±ë¶„ì— ê´€í•œ ê¸°ì—¬ë„ê°€ ë†’ì€ ì–‘ì˜ê°’
+#(4)ìš”ì¸ì ìˆ˜ìƒì„±: ê´€ì°°ê°’ì˜ ë³€ìˆ˜ì˜ ê°’*ê·¸ ë³€ìˆ˜ì˜ ì„±ë¶„ì— ê´€í•œ ê¸°ì—¬ë„: ê° ê´€ì°°ê°’ì´ íšŒì „ëœ ì„±ë¶„ê³¼ ê´€ë ¨ ìžˆëŠ” ì •ë„
 scores<-data.frame(pca.rotate$scores)
 head(scores)
 
-scores$target<-train.scale$À¯ÀÔ·®
+scores$target<-train.scale$ìœ ìž…ëŸ‰
 #head(scores)
 
-##3. È¸±ÍºÐ¼®
-#(1)È¸±Í ÀûÇÕ
+##3. íšŒê·€ë¶„ì„
+#(1)íšŒê·€ ì í•©
 colnames(train)
 lm<-lm(target~., scores)
 summary(lm)    #Adjusted R-squared:  0.6849 
 lm2<-lm(target~RC3+RC2, scores)#   RC3+RC2
-summary(lm2)   #  Adjusted R-squared:  0.6848 -> ºñ½ÁÇÏ´Ï±î µÎ°³¸¸ ¾²°Ú´Ù
+summary(lm2)   #  Adjusted R-squared:  0.6848 -> ë¹„ìŠ·í•˜ë‹ˆê¹Œ ë‘ê°œë§Œ ì“°ê² ë‹¤
 ################################## #####################################
 par(mfrow=c(2,2))
 plot(lm) 
-# 1. ºÐ»êÀÌ Á¡Á¡ Ä¿Áö°í ÀÖÀ½ (µ¶¸³ º¯¼ö °ªÀÇ Å©±â°¡ Ä¿Áö¸é Á¾¼Ó º¯¼ö °ªÀÇ ºÐ»êµµ Ä¿Áö´Â ÀÌºÐ»ê¼º)
-# 2. Á¤±Ô¼º ¿À¸¥ÂÊ ³¡ •û°í´Â ´ëÃ¼·Î ¸¸Á·ÇÏ´Â °Í °°À½(-3~2´Â ¸¸Á·)
-# 3.  1.5º¸´Ù Ä¿¼­ ¾à°£ À§ÇèÇÔ ·Î¿¡½ºÇÍ°ú ´Ù¸¥ ¸ð½ÀÀ» º¸ÀÓ
-# 4. cooks ÇÞ¹ë·ç, ·¹¹ö¸®Áö ÀüºÎ ÀÛÀ½
+# 1. ë¶„ì‚°ì´ ì ì  ì»¤ì§€ê³  ìžˆìŒ (ë…ë¦½ ë³€ìˆ˜ ê°’ì˜ í¬ê¸°ê°€ ì»¤ì§€ë©´ ì¢…ì† ë³€ìˆ˜ ê°’ì˜ ë¶„ì‚°ë„ ì»¤ì§€ëŠ” ì´ë¶„ì‚°ì„±)
+# 2. ì •ê·œì„± ì˜¤ë¥¸ìª½ ë Â•é¦¨ç…® ëŒ€ì²´ë¡œ ë§Œì¡±í•˜ëŠ” ê²ƒ ê°™ìŒ(-3~2ëŠ” ë§Œì¡±)
+# 3.  1.5ë³´ë‹¤ ì»¤ì„œ ì•½ê°„ ìœ„í—˜í•¨ ë¡œì—ìŠ¤í•ê³¼ ë‹¤ë¥¸ ëª¨ìŠµì„ ë³´ìž„
+# 4. cooks í–‡ë°¸ë£¨, ë ˆë²„ë¦¬ì§€ ì „ë¶€ ìž‘ìŒ
 #sol1. 150, 151, 155
 scores[which(scores)==150,]
-#º¸¼öÀûÀÎ ¾Æ¿ô¶óÀÌ¾î °ËÁ¤ 
+#ë³´ìˆ˜ì ì¸ ì•„ì›ƒë¼ì´ì–´ ê²€ì • 
 library(car)
-str(outlierTest(lm) )# 10°³Á¤µµ
+str(outlierTest(lm) )# 10ê°œì •ë„
 
 outlierTest(lm)$rstudent
 keep.subset = (scores != scores[-c(151,150,155,149,156,157,158),])
@@ -84,8 +84,8 @@ plot(lm.noOUT)
 
 
 
-#(1). ¾Æ¿ô¶óÀÌ¾î Å×½ºÆ® ÈÄ º¸¼öÀûÀÎ 
-#(2). Å¸°Ù ·Î±×º¯È¯
+#(1). ì•„ì›ƒë¼ì´ì–´ í…ŒìŠ¤íŠ¸ í›„ ë³´ìˆ˜ì ì¸ 
+#(2). íƒ€ê²Ÿ ë¡œê·¸ë³€í™˜
 
 
 install.packages("gvlma")
@@ -105,28 +105,28 @@ summary(train)
 lm2<-lm(sqrt~., train[,-c(5:6)])
 par(mfrow=c(2,2))
 
-summary( lm2  )     # adjusted r½ºÄù¾î°ªµµ 0.794¿¡¼­  0.9095 ·Î ¿À¸§ 
+summary( lm2  )     # adjusted rìŠ¤í€˜ì–´ê°’ë„ 0.794ì—ì„œ  0.9095 ë¡œ ì˜¤ë¦„ 
 plot(lm)
 plot(lm2)
-#1. ºÐ»ê ¸¹ÀÌ ¾ÈÁ¤µÊ, ¿À¸¥ÂÊ ³¡À¸·Î °¥ ¼ö·Ï °ªÀÌ ¸¹ÀÌ ¾ø¾î¼­ ±×·¸°Ô º¸ÀÌ´Â °Í °°À½. ´ëÃ¼·Î ·Î¿¡½º °ª°ú ÀÏÄ¡ÇÔ
-#2. Á¤±Ô¼ºµµ ¸¹ÀÌ ÁÁ¾ÆÁü, ±×·¯³ª °¡¿îµ¥ ºÎºÐ ¸¹ ºñ¾î¼­ Á¶Á¤ÀÌ ÇÊ¿äÇØ º¸ÀÓ
-#3. 1.5 ¾È³ÑÀ½
-#4. ³Ê¹« ÁÁÀ½
-#È¤½Ã ¸ð¸£´Ï °ËÁ¤
-#µ¶¸³¼º
+#1. ë¶„ì‚° ë§Žì´ ì•ˆì •ë¨, ì˜¤ë¥¸ìª½ ëìœ¼ë¡œ ê°ˆ ìˆ˜ë¡ ê°’ì´ ë§Žì´ ì—†ì–´ì„œ ê·¸ë ‡ê²Œ ë³´ì´ëŠ” ê²ƒ ê°™ìŒ. ëŒ€ì²´ë¡œ ë¡œì—ìŠ¤ ê°’ê³¼ ì¼ì¹˜í•¨
+#2. ì •ê·œì„±ë„ ë§Žì´ ì¢‹ì•„ì§, ê·¸ëŸ¬ë‚˜ ê°€ìš´ë° ë¶€ë¶„ ë§Ž ë¹„ì–´ì„œ ì¡°ì •ì´ í•„ìš”í•´ ë³´ìž„
+#3. 1.5 ì•ˆë„˜ìŒ
+#4. ë„ˆë¬´ ì¢‹ìŒ
+#í˜¹ì‹œ ëª¨ë¥´ë‹ˆ ê²€ì •
+#ë…ë¦½ì„±
 ?durbinWatsonTest
 durbinWatsonTest(lm2)
-#µîºÐ»ê¼º
-ncvTest(lm2)  #À§¹è
-#Á¤±Ô¼º
+#ë“±ë¶„ì‚°ì„±
+ncvTest(lm2)  #ìœ„ë°°
+#ì •ê·œì„±
 par(mfrow=c(1,1))
-qqPlot(lm2)  # ¾Æ¿ô¶óÀÌ¾î°¡ Á¸ÀçÇÏ´Â °Í °°´Ù.  ÈÄº¸:  285 286  202 203 
+qqPlot(lm2)  # ì•„ì›ƒë¼ì´ì–´ê°€ ì¡´ìž¬í•˜ëŠ” ê²ƒ ê°™ë‹¤.  í›„ë³´:  285 286  202 203 
 install.packages("car"); library(car)
-vif(lm2)  # ´ÙÁß°ø¼±¼ºÅ­ --> ¸´Áö³ª ¿¤¶ó½ºÆ½ ÀûÇÕ ÇÊ¿ä.
+vif(lm2)  # ë‹¤ì¤‘ê³µì„ ì„±í¼ --> ë¦¿ì§€ë‚˜ ì—˜ë¼ìŠ¤í‹± ì í•© í•„ìš”.
 residualPlots(lm2)
-#º¸¼öÀûÀÎ ¾Æ¿ô¶óÀÌ¾î °ËÁ¤ 
-outlierTest(lm2)  # 10°³Á¤µµ
-influence.measures(lm2)  # ÈÎ¾À ¸¹À½
+#ë³´ìˆ˜ì ì¸ ì•„ì›ƒë¼ì´ì–´ ê²€ì • 
+outlierTest(lm2)  # 10ê°œì •ë„
+influence.measures(lm2)  # í›¨ì”¬ ë§ŽìŒ
 
 n = nrow(train)
 cutoff = qt(1 - 0.05 / (2*n), (n-5))
@@ -139,24 +139,24 @@ summary(train$sqrt)
 par(mfrow=c(1,2))
 plot(resid(lm2), rstudent(lm2), pch=23, bg='blue', cex=1)
 plot(rstandard(lm2), rstudent(lm2), pch=23, bg='blue', cex=1)
-abline(0,1, col='red')  #obsÀÇ ¾Æ¿ô¶óÀÌ¾î °¡´É¼ºÀÌ ÀÛ´Ù.
+abline(0,1, col='red')  #obsì˜ ì•„ì›ƒë¼ì´ì–´ ê°€ëŠ¥ì„±ì´ ìž‘ë‹¤.
 
 nrow(train)
 plot(1:100, abs(rstudent(lm2)))
 abline(h=cutoff, col='red', lwd=2)
-sum(abs(rstudent(lm(Y~X))) > cutoff ) #CUTOFFº¸´Ù ³ôÀº°Å ¸î°³
+sum(abs(rstudent(lm(Y~X))) > cutoff ) #CUTOFFë³´ë‹¤ ë†’ì€ê±° ëª‡ê°œ
 
 n=nrow(train[,-c(5,6)])
 cutoff = qt(0.99, (n-5))       #0.95->0.975
 plot(1:2027, abs(rstudent(   lm(sqrt~., train[,-c(5,6)]))))
 abline(h=cutoff, col='red', lwd=2)
 sum(abs(rstudent(lm(sqrt~., train[,-5]))) > cutoff)
-##############Æ÷ÅÙ¼È ¾Æ¿ô¶óÀÌ¾î Á¦°ÅÇÔ 
+##############í¬í…ì…œ ì•„ì›ƒë¼ì´ì–´ ì œê±°í•¨ 
 str(new.train)
 
 new.train<-train[-which(abs(rstudent(lm(sqrt~., train[,-c(5,6)]))) > cutoff),]
 lm3<-lm(sqrt~., new.train[,-c(5,6)])
-summary(lm3)   # ¾Ë½ºÄù¾î°ª ¶Ç ¿Ã¶ó°¨ 0.90  -->  0.9438 
+summary(lm3)   # ì•ŒìŠ¤í€˜ì–´ê°’ ë˜ ì˜¬ë¼ê° 0.90  -->  0.9438 
 par(mfrow=c(2,2))
 par(mfrow=c(1,1))
 plot(lm3)
@@ -167,10 +167,10 @@ outlierTest(lm3)
 #plot(1: 1943, abs(rstudent(  lm3 )))
 #abline(h=cutoff, col='red', lwd=2)
 #sum(abs(rstudent(lm3 )) > cutoff)
-#qqPlot(lm2)  # ¾Æ¿ô¶óÀÌ¾î°¡ Á¸ÀçÇÏ´Â °Í °°´Ù.  ÈÄº¸:  285 286  202 203 
+#qqPlot(lm2)  # ì•„ì›ƒë¼ì´ì–´ê°€ ì¡´ìž¬í•˜ëŠ” ê²ƒ ê°™ë‹¤.  í›„ë³´:  285 286  202 203 
 #qqPlot(lm3)
 #library(car)
-#vif(lm2) ; vif(lm3)  -> ÁÙ¾îµê
+#vif(lm2) ; vif(lm3)  -> ì¤„ì–´ë“¦
 #ncvTest(lm2); ncvTest(lm3)
 
 #colnames(train)
@@ -180,7 +180,7 @@ outlierTest(lm3)
 
 #crPlots(lm2, 'RC1')
 #crPlots(lm2, 'RC3')
-##################################0.95·Î Á¦°ÅÇÔ
+##################################0.95ë¡œ ì œê±°í•¨
 #n=nrow(train[,-c(5:6)])
 #colnames(train)
 cutoff2 = qt(0.95, (n-5))       #0.9438 ->0.95
@@ -200,7 +200,7 @@ summary(lm3)
  
    
 #plot(lm3)
-###############################################################Áø´Ü¿Ï·á
+###############################################################ì§„ë‹¨ì™„ë£Œ
 summary(lm.fi1)   # 0.90
 lm.fi2<-lm(sqrt~RC1 + RC3 + RC4,     new.train[,-c(5,6)])
 .sub2summary(lm.fi2)     # 0.942
@@ -210,7 +210,7 @@ lm.fi4<-lm(sqrt~RC1 + RC3 + RC4,     new.train2[,-c(5,6)])
 summary(lm.fi4)  #0.958 
 ################################################################
 install.packages("leaps")
-library(leaps) #ÃÖ·®
+library(leaps) #ìµœëŸ‰
 #scores<-scores[,-5]
 #colnames(scores)
 
@@ -235,9 +235,9 @@ step.forward.AIC<-step(lm(sqrt~., new.train2[,-c(5,6)]) ,   direction = "forward
 step.bacward.AIC<-step(lm(sqrt~., new.train2[,-c(5,6)]) ,   direction = "backward",  k = 2)  # RC1 + RC3 + RC4
 step.both.AIC<-step(lm(sqrt~., new.train2[,-c(5,6)]) ,   direction = "both",  k = 2) # RC1 + RC3 + RC4
 
-##===> RC1 + RC3 + RC4 º¯¼ö ¼¿·º¼Ç ¿Ï·á
+##===> RC1 + RC3 + RC4 ë³€ìˆ˜ ì…€ë ‰ì…˜ ì™„ë£Œ
 lm.fi1<-lm(sqrt~RC1 + RC3 + RC4,    new.train2[,-c(5,6)])
-summary(lm.fi1)   #################### Adjusted R-squared:    0.958 º¯¼ö ÇÏ³ª »©µµ ¼³¸í·°Àº ±×´ë·ÎÀÓ 
+summary(lm.fi1)   #################### Adjusted R-squared:    0.958 ë³€ìˆ˜ í•˜ë‚˜ ë¹¼ë„ ì„¤ëª…ëŸ­ì€ ê·¸ëŒ€ë¡œìž„ 
 
 summary(lm.fi1$fitted.values)
 
@@ -245,5 +245,5 @@ summary(  new.train2[,-c(5,6)]$sqrt )
 new.train2$fitted<-lm.fi1$fitted.values
 plot(lm.fi1$fitted.values, new.train2[,-c(5,6)]$sqrt, main="Predicted versus Actual", xlab="Predicted", ylab="Actual")
 abline(0,1)
-###°á°úÇØ¼®: ¼¼°¡Áö ÁÖ¼ººÐÀÌ Å¸°ÙÀ» Àß ¿¹ÃøÇÑ´Ù/ ÁÖ¼ººÐ°ú Å¸°ÙÀÌ °­ÇÑ ¼±Çü °ü°è´Ù. ÇÐ½Àµ¥ÀÌÅÍ¿¡ ¼±ÇüÀ¸·Î ÀûÇÕÇÔ.
+###ê²°ê³¼í•´ì„: ì„¸ê°€ì§€ ì£¼ì„±ë¶„ì´ íƒ€ê²Ÿì„ ìž˜ ì˜ˆì¸¡í•œë‹¤/ ì£¼ì„±ë¶„ê³¼ íƒ€ê²Ÿì´ ê°•í•œ ì„ í˜• ê´€ê³„ë‹¤. í•™ìŠµë°ì´í„°ì— ì„ í˜•ìœ¼ë¡œ ì í•©í•¨.
 
