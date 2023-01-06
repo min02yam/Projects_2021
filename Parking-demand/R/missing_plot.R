@@ -7,29 +7,29 @@ options(encoding="utf-8")
 train<-read.csv("train.csv", sep=',', header=T)
 str(train)
 summary(train)
-summary(train$ÀÓ´ë·á)
+summary(train$ìž„ëŒ€ë£Œ)
 
 
-train$ÀÓ´ë·á<- as.numeric(train$ÀÓ´ë·á)
-train$ÀÓ´ëº¸Áõ±Ý<-as.numeric(train$ÀÓ´ëº¸Áõ±Ý)
+train$ìž„ëŒ€ë£Œ<- as.numeric(train$ìž„ëŒ€ë£Œ)
+train$ìž„ëŒ€ë³´ì¦ê¸ˆ<-as.numeric(train$ìž„ëŒ€ë³´ì¦ê¸ˆ)
 
 
-summary(train$ÀÓ´ëº¸Áõ±Ý)
-summary(train$ÀÓ´ë·á)
+summary(train$ìž„ëŒ€ë³´ì¦ê¸ˆ)
+summary(train$ìž„ëŒ€ë£Œ)
 
 
-head( table(train$ÀÓ´ëº¸Áõ±Ý) )   
-head( table(train$ÀÓ´ë·á) )
+head( table(train$ìž„ëŒ€ë³´ì¦ê¸ˆ) )   
+head( table(train$ìž„ëŒ€ë£Œ) )
 
-train$ÀÓ´ë·á<- as.numeric(train$ÀÓ´ë·á)
-train$ÀÓ´ëº¸Áõ±Ý<-as.numeric(train$ÀÓ´ëº¸Áõ±Ý)
-sum(is.na(train$ÀÓ´ë·á)); sum(is.na(train$ÀÓ´ëº¸Áõ±Ý))
+train$ìž„ëŒ€ë£Œ<- as.numeric(train$ìž„ëŒ€ë£Œ)
+train$ìž„ëŒ€ë³´ì¦ê¸ˆ<-as.numeric(train$ìž„ëŒ€ë³´ì¦ê¸ˆ)
+sum(is.na(train$ìž„ëŒ€ë£Œ)); sum(is.na(train$ìž„ëŒ€ë³´ì¦ê¸ˆ))
 write.csv(train, "train_N.csv", row.names = FALSE)
 
 
 
 
-train<-read.csv("train_n.csv", sep=',', header=T)# ¹Ý¿µ¿Í·á 
+train<-read.csv("train_n.csv", sep=',', header=T)# ë°˜ì˜ì™€ë£Œ 
 
 #######################
 
