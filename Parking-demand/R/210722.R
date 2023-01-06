@@ -6,7 +6,7 @@ library(ggplot2)
 library(corrplot)
 library(dplyr)
 ###########################
-m=15 #¾Õ¼­, 20¹ø ½ÃÇà ÇÔ
+m=15 #ì•žì„œ, 20ë²ˆ ì‹œí–‰ í•¨
 test.result<-mice( test   , m=m, method = "sample", seed=0049, print=FALSE)
 densityplot(test.result) 
 test.completedData<-complete(test.result, 1 )
@@ -17,11 +17,11 @@ table(test$bus)
 
 write.csv(test.completedData, "test0722.csv", row.names=F)
 
-##corÈ®ÀÎ
+##corí™•ì¸
 
 train.cor<-cor(train[,-1]) 
 corrplot(train.cor, method="number",  type = "lower" ,addCoef.col = "black" ,  tl.col = "black", tl.srt = 45, diag = F) 
-	#target num_park 0.86 ÀÌ¿Ü ³ôÀº »ó°ü°è¼ö È®ÀÎ ¾ÈµÊ
+	#target num_park 0.86 ì´ì™¸ ë†’ì€ ìƒê´€ê³„ìˆ˜ í™•ì¸ ì•ˆë¨
 
 
 
@@ -37,8 +37,8 @@ table(train$type_as)
 
 
 train$type_as2<-ifelse(train$type_as0==1 | train$type_as1==1, 2, 0)
-#1ÀÌ°í0 -> 0
-#0ÀÌ°í1-> 1
+#1ì´ê³ 0 -> 0
+#0ì´ê³ 1-> 1
 
 
 train$type_as0<-ifelse(train$type_as==0,1,0)
