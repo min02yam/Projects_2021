@@ -11,14 +11,14 @@ train<-read.csv("train1.csv", sep=",", header=T)
 
 str(train)
 
-table(train$ÁöÇÏÃ¶¿ª¼ö)
-table(train$¹ö½ºÁ¤·ùÀå¼ö)
+table(train$ì§€í•˜ì² ì—­ìˆ˜)
+table(train$ë²„ìŠ¤ì •ë¥˜ì¥ìˆ˜)
 
-#1. ´ëÁß±³Åë factor·Î º¯°æ
-train$ÁöÇÏÃ¶¿ª¼ö<-as.factor(train$ÁöÇÏÃ¶¿ª¼ö)
-train$¹ö½ºÁ¤·ùÀå¼ö<-as.factor(train$¹ö½ºÁ¤·ùÀå¼ö)
+#1. ëŒ€ì¤‘êµí†µ factorë¡œ ë³€ê²½
+train$ì§€í•˜ì² ì—­ìˆ˜<-as.factor(train$ì§€í•˜ì² ì—­ìˆ˜)
+train$ë²„ìŠ¤ì •ë¥˜ì¥ìˆ˜<-as.factor(train$ë²„ìŠ¤ì •ë¥˜ì¥ìˆ˜)
 str(train)
-##-> ±»ÀÌ factorº¯°ß ¾ÈÇØµµ µÉ °Í °°À½. º¯¼ö ¸¹À» ¼ö·Ï ±³È£ÀÛ¿ë±îÁö °í·ÁÇØ¾ß ÇÔ
+##-> êµ³ì´ factorë³€ê²¬ ì•ˆí•´ë„ ë  ê²ƒ ê°™ìŒ. ë³€ìˆ˜ ë§ì„ ìˆ˜ë¡ êµí˜¸ì‘ìš©ê¹Œì§€ ê³ ë ¤í•´ì•¼ í•¨
 
 
 
@@ -28,54 +28,54 @@ str(train)
 
 test<-read.csv("testm0710(1).csv", sep=",", header=T)   
 
-####5. test µ¥ÀÌÅÍ ÀÚ°İÀ¯Çü °áÃøÄ¡ ´ëÄ¡ ( ±×·ìÈ­ / ±¹¹ÎÀÓ´ë - ÀÚ°İÀ¯Çüº° - ÀÓ´ë·á  )
-sum( table(test$ÀÚ°İÀ¯Çü) ) 
+####5. test ë°ì´í„° ìê²©ìœ í˜• ê²°ì¸¡ì¹˜ ëŒ€ì¹˜ ( ê·¸ë£¹í™” / êµ­ë¯¼ì„ëŒ€ - ìê²©ìœ í˜•ë³„ - ì„ëŒ€ë£Œ  )
+sum( table(test$ìê²©ìœ í˜•) ) 
 nrow(test)
-sum(table(train$ÀÚ°İÀ¯Çü))
+sum(table(train$ìê²©ìœ í˜•))
 nrow(train)
 
 
 rm(list=ls())
-####6.Çàº¹ÁÖÅÃ Áö¿ªº°/ÀÓ´ë·áº°·Î º¸°í ÀÓÇ»Å×ÀÌ¼Ç
-#°­¿øµµÀÇ Çàº¹ÁÖÅÃ C1786´ÜÁö¿¡¼­ ÀÓ´ë·á ÀÓ´ëº¸Áõ±İ¿¡ °áÃøÀÌ Á¸ÀçÇÔ.
-#°­¿øµµÀÇ ¹ÙÀÌ¿Ã¸°Â÷Æ®¸¦ ºÃÀ» ¶§, ¸ğ¾ç°ú ºĞÆ÷°¡ °æ»ó³²µµ¿Í ¸Å¿ì À¯»çÇÔ.
-#ÀÓ´ë·á¿Í ÀÓ´ëº¸Áõ±İÀº  1.ÀÚ°İÀ¯Çü 2.Àü¿ë¸éÀû °ú °¡Àå ¿µÇâÀÌ ÀÖÀ»°ÍÀÌ¶ó Ãß·Ğ.
-#¿Ö³ÄÇÏ¸é »ó°ü°è¼ö´Â °áÃøÄ¡ ¶§¹®¿¡ ±Ù°Å°¡ µÉ ¼ö ¾ø±â ¶§¹®.
-#ÀÚ°İÀ¯Çü=="K"   * ( Àü¿ë¸éÀû==16.91 | Àü¿ë¸éÀû==26.~~ )  
+####6.í–‰ë³µì£¼íƒ ì§€ì—­ë³„/ì„ëŒ€ë£Œë³„ë¡œ ë³´ê³  ì„í“¨í…Œì´ì…˜
+#ê°•ì›ë„ì˜ í–‰ë³µì£¼íƒ C1786ë‹¨ì§€ì—ì„œ ì„ëŒ€ë£Œ ì„ëŒ€ë³´ì¦ê¸ˆì— ê²°ì¸¡ì´ ì¡´ì¬í•¨.
+#ê°•ì›ë„ì˜ ë°”ì´ì˜¬ë¦°ì°¨íŠ¸ë¥¼ ë´¤ì„ ë•Œ, ëª¨ì–‘ê³¼ ë¶„í¬ê°€ ê²½ìƒë‚¨ë„ì™€ ë§¤ìš° ìœ ì‚¬í•¨.
+#ì„ëŒ€ë£Œì™€ ì„ëŒ€ë³´ì¦ê¸ˆì€  1.ìê²©ìœ í˜• 2.ì „ìš©ë©´ì  ê³¼ ê°€ì¥ ì˜í–¥ì´ ìˆì„ê²ƒì´ë¼ ì¶”ë¡ .
+#ì™œëƒí•˜ë©´ ìƒê´€ê³„ìˆ˜ëŠ” ê²°ì¸¡ì¹˜ ë•Œë¬¸ì— ê·¼ê±°ê°€ ë  ìˆ˜ ì—†ê¸° ë•Œë¬¸.
+#ìê²©ìœ í˜•=="K"   * ( ì „ìš©ë©´ì ==16.91 | ì „ìš©ë©´ì ==26.~~ )  
 str(train)
-colnames(train[10] )  # ÀÓ´ëº¸Áõ±İ
-colnames(train[11] )  # ÀÓ´ë·á 
+colnames(train[10] )  # ì„ëŒ€ë³´ì¦ê¸ˆ
+colnames(train[11] )  # ì„ëŒ€ë£Œ 
 
 
 library(dplyr)
-train.happy<-subset(train, °ø±ŞÀ¯Çü=="Çàº¹ÁÖÅÃ")
-train.happy[train.happy$Áö¿ª=="°­¿øµµ",]
+train.happy<-subset(train, ê³µê¸‰ìœ í˜•=="í–‰ë³µì£¼íƒ")
+train.happy[train.happy$ì§€ì—­=="ê°•ì›ë„",]
 
-a16 <-train.happy[train.happy$Áö¿ª=="°æ»ó³²µµ" & train.happy$ÀÚ°İÀ¯Çü=="K" & train.happy$Àü¿ë¸éÀû>=16 & train.happy$Àü¿ë¸éÀû<=26 ,  ]  %>% summarise(mean(ÀÓ´ë·á))
+a16 <-train.happy[train.happy$ì§€ì—­=="ê²½ìƒë‚¨ë„" & train.happy$ìê²©ìœ í˜•=="K" & train.happy$ì „ìš©ë©´ì >=16 & train.happy$ì „ìš©ë©´ì <=26 ,  ]  %>% summarise(mean(ì„ëŒ€ë£Œ))
 #17524
-b16 <-train.happy[train.happy$Áö¿ª=="°æ»ó³²µµ" & train.happy$ÀÚ°İÀ¯Çü=="K" & train.happy$Àü¿ë¸éÀû>=16 & train.happy$Àü¿ë¸éÀû<=26 ,  ]  %>% summarise(mean(ÀÓ´ëº¸Áõ±İ))
+b16 <-train.happy[train.happy$ì§€ì—­=="ê²½ìƒë‚¨ë„" & train.happy$ìê²©ìœ í˜•=="K" & train.happy$ì „ìš©ë©´ì >=16 & train.happy$ì „ìš©ë©´ì <=26 ,  ]  %>% summarise(mean(ì„ëŒ€ë³´ì¦ê¸ˆ))
 #33649800
-a26 <-train.happy[train.happy$Áö¿ª=="°æ»ó³²µµ" & train.happy$ÀÚ°İÀ¯Çü=="K" & train.happy$Àü¿ë¸éÀû>=26 & train.happy$Àü¿ë¸éÀû<=36 ,  ]  %>% summarise(mean(ÀÓ´ë·á))
+a26 <-train.happy[train.happy$ì§€ì—­=="ê²½ìƒë‚¨ë„" & train.happy$ìê²©ìœ í˜•=="K" & train.happy$ì „ìš©ë©´ì >=26 & train.happy$ì „ìš©ë©´ì <=36 ,  ]  %>% summarise(mean(ì„ëŒ€ë£Œ))
 #26720
-b26<-train.happy[train.happy$Áö¿ª=="°æ»ó³²µµ" & train.happy$ÀÚ°İÀ¯Çü=="K" & train.happy$Àü¿ë¸éÀû>=26 & train.happy$Àü¿ë¸éÀû<=36 ,  ]  %>% summarise(mean(ÀÓ´ëº¸Áõ±İ))
+b26<-train.happy[train.happy$ì§€ì—­=="ê²½ìƒë‚¨ë„" & train.happy$ìê²©ìœ í˜•=="K" & train.happy$ì „ìš©ë©´ì >=26 & train.happy$ì „ìš©ë©´ì <=36 ,  ]  %>% summarise(mean(ì„ëŒ€ë³´ì¦ê¸ˆ))
 #51309000
 
 
-train$ÀÓ´ë·á<-ifelse( train.happy$Áö¿ª=="°­¿øµµ" & train.happy$ÀÚ°İÀ¯Çü=="K" & train.happy$Àü¿ë¸éÀû>=16 & train.happy$Àü¿ë¸éÀû<=26  , a16, train$ÀÓ´ë·á   )
-train$ÀÓ´ëº¸Áõ±İ<-ifelse(  train[2609,]$ÀÓ´ëº¸Áõ±İ==0 , b16, train$ÀÓ´ëº¸Áõ±İ   )
+train$ì„ëŒ€ë£Œ<-ifelse( train.happy$ì§€ì—­=="ê°•ì›ë„" & train.happy$ìê²©ìœ í˜•=="K" & train.happy$ì „ìš©ë©´ì >=16 & train.happy$ì „ìš©ë©´ì <=26  , a16, train$ì„ëŒ€ë£Œ   )
+train$ì„ëŒ€ë³´ì¦ê¸ˆ<-ifelse(  train[2609,]$ì„ëŒ€ë³´ì¦ê¸ˆ==0 , b16, train$ì„ëŒ€ë³´ì¦ê¸ˆ   )
 
 
-train$ÀÓ´ëº¸Áõ±İ[2613]
+train$ì„ëŒ€ë³´ì¦ê¸ˆ[2613]
 
 
-train$ÀÓ´ë·á<-ifelse( train[c(2610:2612),]$ÀÓ´ë·á==0 , a26, train$ÀÓ´ë·á   )
-train$ÀÓ´ëº¸Áõ±İ<-ifelse(  train[c(2610:2612),]$ÀÓ´ëº¸Áõ±İ==0 , b26, train$ÀÓ´ëº¸Áõ±İ   )
+train$ì„ëŒ€ë£Œ<-ifelse( train[c(2610:2612),]$ì„ëŒ€ë£Œ==0 , a26, train$ì„ëŒ€ë£Œ   )
+train$ì„ëŒ€ë³´ì¦ê¸ˆ<-ifelse(  train[c(2610:2612),]$ì„ëŒ€ë³´ì¦ê¸ˆ==0 , b26, train$ì„ëŒ€ë³´ì¦ê¸ˆ   )
 
 
 
 
 
-test$ÀÓ´ëº¸Áõ±İ<-ifelse(  is.na(test$ÀÓ´ëº¸Áõ±İ), 0, test$ÀÓ´ëº¸Áõ±İ   )
+test$ì„ëŒ€ë³´ì¦ê¸ˆ<-ifelse(  is.na(test$ì„ëŒ€ë³´ì¦ê¸ˆ), 0, test$ì„ëŒ€ë³´ì¦ê¸ˆ   )
 
 
 train[2609,]
@@ -94,14 +94,14 @@ train<-read.csv("train0711.csv", sep=",", header=T)
 
 
 
-####°ø°øºĞ¾ç, °ø°øÀÓ´ë, ÀÜ±âÀü¼¼  / µî·ÏÂ÷·®¼ö
+####ê³µê³µë¶„ì–‘, ê³µê³µì„ëŒ€, ì”ê¸°ì „ì„¸  / ë“±ë¡ì°¨ëŸ‰ìˆ˜
 
 
 table(train[,4])
 
 ggplot(train,
        aes(x=train[,5],
-           y=µî·ÏÂ÷·®¼ö, fill=train[,5]))+
+           y=ë“±ë¡ì°¨ëŸ‰ìˆ˜, fill=train[,5]))+
   geom_violin(scale='width')
 ####
 
@@ -111,18 +111,18 @@ library(ggplot2)
 
 ggplot(train,
        aes(x=train[,9],
-           y=µî·ÏÂ÷·®¼ö, fill=train[,9]))+
+           y=ë“±ë¡ì°¨ëŸ‰ìˆ˜, fill=train[,9]))+
   geom_violin(scale='width')
 
 
 ggplot(train,
        aes(x=train[,5],
-           y=µî·ÏÂ÷·®¼ö, fill=train[,5]))+
+           y=ë“±ë¡ì°¨ëŸ‰ìˆ˜, fill=train[,5]))+
   geom_violin(scale='width')
 
 ggplot(train,
        aes(x=train[,4],
-           y=µî·ÏÂ÷·®¼ö, fill=train[,4]))+
+           y=ë“±ë¡ì°¨ëŸ‰ìˆ˜, fill=train[,4]))+
   geom_violin(scale='width')
 
 
@@ -150,7 +150,7 @@ mean(train[,14])
 
 boxplot(train[,14])
 
-##F,MµÎ°³¹Û¿¡¾øÀ½ 
+##F,Më‘ê°œë°–ì—ì—†ìŒ 
 
 table(train[,9])
 
@@ -178,8 +178,8 @@ micepattern<-md.pattern(train[,c(10:11,14)])
 write.csv(micepattern,"micepattern.csv", row.names=T)
 
 
-train$ÀÓ´ë·á<-ifelse(  train$ÀÓ´ë·á==0, NA, train$ÀÓ´ë·á   )
-train$ÀÓ´ëº¸Áõ±İ<-ifelse(  train$ÀÓ´ëº¸Áõ±İ==0, NA, train$ÀÓ´ëº¸Áõ±İ   )
+train$ì„ëŒ€ë£Œ<-ifelse(  train$ì„ëŒ€ë£Œ==0, NA, train$ì„ëŒ€ë£Œ   )
+train$ì„ëŒ€ë³´ì¦ê¸ˆ<-ifelse(  train$ì„ëŒ€ë³´ì¦ê¸ˆ==0, NA, train$ì„ëŒ€ë³´ì¦ê¸ˆ   )
 
 
 
@@ -215,12 +215,12 @@ stripplot(imp, pch=10, cex=1.2)
 ####################
 apply(train,1,pMiss)
 
-###########################¸¶ÀÌ½º Ã³À½ºÎÅÍ ´Ù½Ã
+###########################ë§ˆì´ìŠ¤ ì²˜ìŒë¶€í„° ë‹¤ì‹œ
 setwd("C:/dacon")
 train<-read.csv("train0711_2.csv", sep=",", header=T)
 
-train$ÀÓ´ë·á<-ifelse(  train$ÀÓ´ë·á==0, NA, train$ÀÓ´ë·á )
-train$ÀÓ´ëº¸Áõ±İ<-ifelse(  train$ÀÓ´ëº¸Áõ±İ==0, NA, train$ÀÓ´ëº¸Áõ±İ)
+train$ì„ëŒ€ë£Œ<-ifelse(  train$ì„ëŒ€ë£Œ==0, NA, train$ì„ëŒ€ë£Œ )
+train$ì„ëŒ€ë³´ì¦ê¸ˆ<-ifelse(  train$ì„ëŒ€ë³´ì¦ê¸ˆ==0, NA, train$ì„ëŒ€ë³´ì¦ê¸ˆ)
 
 
 install.packages("mice", dependencies=T)
@@ -255,7 +255,7 @@ boxplot(train[10])
 str( train
 
 
-#ÀÓ´ëº¸Áõ±İ(10), ÀÓ´ë·á(11)
+#ì„ëŒ€ë³´ì¦ê¸ˆ(10), ì„ëŒ€ë£Œ(11)
 par(mfcol=c(2,2))
 for (j in 10:11) { 
 boxplot(train[,j] , main=names(train)[j],  xlab=names(train)[j] )  
@@ -266,8 +266,8 @@ hist(train[,j] , main=names(train)[j] , xlab=names(train)[j] )
 ################test imputation#################
 test<-read.csv("test0701.csv", sep="," , header=T) 
 
-test$ÀÓ´ë·á<-ifelse(  test$ÀÓ´ë·á==0, NA, test$ÀÓ´ë·á )
-test$ÀÓ´ëº¸Áõ±İ<-ifelse(  test$ÀÓ´ëº¸Áõ±İ==0, NA, test$ÀÓ´ëº¸Áõ±İ)
+test$ì„ëŒ€ë£Œ<-ifelse(  test$ì„ëŒ€ë£Œ==0, NA, test$ì„ëŒ€ë£Œ )
+test$ì„ëŒ€ë³´ì¦ê¸ˆ<-ifelse(  test$ì„ëŒ€ë³´ì¦ê¸ˆ==0, NA, test$ì„ëŒ€ë³´ì¦ê¸ˆ)
 
 m=20
 
@@ -279,7 +279,7 @@ completedData.test<-complete(result.test, 1 )
 
 write.csv(completedData.test, "test.imp2.csv", row.names=F)
 
-#########################train ¼ºº°,¿¡ÀÌÁö #######
+#########################train ì„±ë³„,ì—ì´ì§€ #######
 train.age<-read.csv("trainm0710(1).csv", sep="," , header=T) 
 str(train.age)
 trainage<-train.age[,c(16:37, 15)] 
@@ -304,21 +304,3 @@ corrplot(trainage0.cor, method="number",  type = "lower" ,addCoef.col = "black" 
 corrplot(trainage1.cor, method="number",  type = "lower" ,addCoef.col = "black" ,  tl.col = "black", tl.srt = 45, diag = F)
 
 corrplot(trainage5080.cor, method="number",  type = "lower" ,addCoef.col = "black" ,  tl.col = "black", tl.srt = 45, diag = F)  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
