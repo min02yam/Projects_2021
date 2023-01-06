@@ -7,12 +7,12 @@ str(train)
 
 #################################
 
-table( subset( train[,5], train$ÀÓ´ë°Ç¹°±¸ºĞ=="»ó°¡") )
+table( subset( train[,5], train$ì„ëŒ€ê±´ë¬¼êµ¬ë¶„=="ìƒê°€") )
 colnames(train[5])
-table(train$ÀÓ´ë°Ç¹°±¸ºĞ)
+table(train$ì„ëŒ€ê±´ë¬¼êµ¬ë¶„)
 
 prob.table()
-prop.table( xtabs(~train$ÀÓ´ë°Ç¹°±¸ºĞ) )
+prop.table( xtabs(~train$ì„ëŒ€ê±´ë¬¼êµ¬ë¶„) )
 
 table(train[,5])
 prop.table(table(train[,5]))
