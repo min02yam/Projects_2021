@@ -12,7 +12,7 @@ train2<-train%>% group_by(code)
 
 train2<-train[!duplicated(train),] 
 write.csv(train2, "train0723(5).csv", row.names=F)
-##################test ½ÃÀÛ
+##################test ì‹œì‘
 table(test$type_im)
 
 test$type_im1<-ifelse(test$type_im==1,1,0)
@@ -42,7 +42,7 @@ test2<-test %>% group_by(code) %>%summarise(prop_type_im1=mean(type_im1)
 
 test<-left_join(test, test2, by='code') 
 
-## area  °ø±Ş¸éÀû º¸°í ³ª´©±â
+## area  ê³µê¸‰ë©´ì  ë³´ê³  ë‚˜ëˆ„ê¸°
 test<-read.table("test0722.csv", sep=',', header=T)
 table(test$area)
 test$area<-ifelse(test$area>84.99, 84.99, test$area)
@@ -66,9 +66,9 @@ test2<-test %>% group_by(code) %>%summarise(prop_areaL21=mean(areaL21)
                                               , prop_areaU59=mean(areaU59)  )
 
 
-### area_pop,area_pop  :area±×·ìº°·Î ´õÇØ¼­ tot_pop°ú corºñ±³ 
-==============>area_pop »èÁ¦ (cor ³ôÀ½)
-## type_qual ¿øÇÖÈÄ prop_type_qual ¸¸µé±â 
+### area_pop,area_pop  :areaê·¸ë£¹ë³„ë¡œ ë”í•´ì„œ tot_popê³¼ corë¹„êµ 
+==============>area_pop ì‚­ì œ (cor ë†’ìŒ)
+## type_qual ì›í•«í›„ prop_type_qual ë§Œë“¤ê¸° 
 test$type_qual1<-ifelse(test$type_qual==1,1,0)
 test$type_qual2<-ifelse(test$type_qual==2,1,0)
 test$type_qual3<-ifelse(test$type_qual==3,1,0)
@@ -102,11 +102,11 @@ test2<-test %>% group_by(code) %>%summarise(prop_type_qual1=mean(type_qual1)
 
 test<-left_join(test, test2, by='code') 
 
-## fee °ü·Ã µÎ°³ CODEº° median  // (mean ³ªÁß¿¡ ÇÔ)
+## fee ê´€ë ¨ ë‘ê°œ CODEë³„ median  // (mean ë‚˜ì¤‘ì— í•¨)
 test2<-test %>% group_by(code) %>%summarise(M_fee_deposit=median(fee_deposit), M_fee_rent=median(fee_rent))
 test<-left_join(test, test2, by='code') 
 
-## CODE ±×·ìÈ­ duplicatedÃ³¸®
+## CODE ê·¸ë£¹í™” duplicatedì²˜ë¦¬
 test[!duplicated(train),]
 
 
