@@ -7,37 +7,37 @@ library(ggplot2)
 #help(package="ROSE")
 #################################
 
-#µ¥ÀÌÅÍ ·Îµå
+#ë°ì´í„° ë¡œë“œ
 setwd("C:/dacon")
 train<-read.csv("train.csv", sep=',', header=T)
 
-#±¸Á¶ È®ÀÎ
+#êµ¬ì¡° í™•ì¸
 str(train)
 search()
 
 
-rename(train, ÁöÇÏÃ¶¿ª¼ö=train.µµº¸.10ºĞ°Å¸®.³».ÁöÇÏÃ¶¿ª.¼ö.È¯½Â³ë¼±.¼ö.¹İ¿µ.)
+rename(train, ì§€í•˜ì² ì—­ìˆ˜=train.ë„ë³´.10ë¶„ê±°ë¦¬.ë‚´.ì§€í•˜ì² ì—­.ìˆ˜.í™˜ìŠ¹ë…¸ì„ .ìˆ˜.ë°˜ì˜.)
 
 
 ggplot(train,
-       aes   (x=ÀÓ´ë°Ç¹°±¸ºĞ,y=µî·ÏÂ÷·®¼ö, fill=ÀÓ´ë°Ç¹°±¸ºĞ)      )
+       aes   (x=ì„ëŒ€ê±´ë¬¼êµ¬ë¶„,y=ë“±ë¡ì°¨ëŸ‰ìˆ˜, fill=ì„ëŒ€ê±´ë¬¼êµ¬ë¶„)      )
 +
   geom_violin(trim=TRUE,
               scale='count')
 
 
-with(train, boxplot(µî·ÏÂ÷·®¼ö~ÀÓ´ë°Ç¹°±¸ºĞ))
+with(train, boxplot(ë“±ë¡ì°¨ëŸ‰ìˆ˜~ì„ëŒ€ê±´ë¬¼êµ¬ë¶„))
 
 
 par(mfrow=c(1,2))
 ggplot(train,
-       aes(x=ÀÓ´ë°Ç¹°±¸ºĞ,
-           y=µî·ÏÂ÷·®¼ö, fill=ÀÓ´ë°Ç¹°±¸ºĞ))+
+       aes(x=ì„ëŒ€ê±´ë¬¼êµ¬ë¶„,
+           y=ë“±ë¡ì°¨ëŸ‰ìˆ˜, fill=ì„ëŒ€ê±´ë¬¼êµ¬ë¶„))+
   geom_violin(scale='width')
 
 ggplot(train,
-       aes(x=µî·ÏÂ÷·®¼ö,
-           y=ÀÓ´ë°Ç¹°±¸ºĞ, fill=ÀÓ´ë°Ç¹°±¸ºĞ))+
+       aes(x=ë“±ë¡ì°¨ëŸ‰ìˆ˜,
+           y=ì„ëŒ€ê±´ë¬¼êµ¬ë¶„, fill=ì„ëŒ€ê±´ë¬¼êµ¬ë¶„))+
   geom_violin()
 
 
@@ -49,8 +49,8 @@ ggplot(mpg, aes(x=factor(class),
 
 
 ggplot(train,
-       aes(x=Áö¿ª,
-           y=ÀÓ´ë°Ç¹°±¸ºĞ, fill=Áö¿ª))+
+       aes(x=ì§€ì—­,
+           y=ì„ëŒ€ê±´ë¬¼êµ¬ë¶„, fill=ì§€ì—­))+
   geom_violin(scale='width')
 
 
@@ -67,7 +67,7 @@ tail(df[o,],5)
 pairs(train[,6],train[,7] )
 ?pairs
 
-tb<-with(train,xtabs(µî·ÏÂ÷·®¼ö~train[,9]))
+tb<-with(train,xtabs(ë“±ë¡ì°¨ëŸ‰ìˆ˜~train[,9]))
 as.dataframe(_)
 
 
