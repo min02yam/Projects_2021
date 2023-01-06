@@ -1,11 +1,11 @@
 ##210729
 ############################################
-#°æ·Î ¼³Á¤ ¹× ¶óÀÌºê·¯¸® ·Îµå
+#ê²½ë¡œ ì„¤ì • ë° ë¼ì´ë¸ŒëŸ¬ë¦¬ ë¡œë“œ
 getwd()
 setwd("C:/dacon/re")
 install.packages("mice", dependencies=T)
 library(mice)
-#µ¥ÀÌÅÍ ·Îµå
+#ë°ì´í„° ë¡œë“œ
 train<-read.table("train.org0729.csv", sep=",", header=T)
 
 summary(train)
