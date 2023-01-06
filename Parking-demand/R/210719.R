@@ -10,19 +10,19 @@ setwd("C:/dacon/re")
 train<-read.table("train.csv", sep=",", header=T)
 str(train)
 
-### fee_deposit , fee_rent Á¤¼ö·Î º¯°æ 
+### fee_deposit , fee_rent ì •ìˆ˜ë¡œ ë³€ê²½ 
 train$fee_deposit<-as.numeric(train$fee_deposit)
 train$fee_rent<-as.numeric(train$fee_rent)
 str(train)
 
-###bus ÀÌ»óÄ¡Á¤¸®
+###bus ì´ìƒì¹˜ì •ë¦¬
 table(train$bus)
-quantile(train$bus, probs=0.99)   #99ÄöÅ¸ÀÏ°ª 15
+quantile(train$bus, probs=0.99)   #99í€€íƒ€ì¼ê°’ 15
 train$bus<-ifelse(train$bus>=16, 15, train$bus)
 table(train$bus)
 summary(train)
 
-###fee_deposit, fee_rent, sub NA°ü·Ã
+###fee_deposit, fee_rent, sub NAê´€ë ¨
 m=20
 result<-mice( train   , m=m, method = "cart", seed=0049, print=FALSE)
 densityplot(result) 
@@ -34,75 +34,75 @@ sum(is.na(completedData))
 sum(is.na(train))
 write.csv(completedData, "train2.csv", row.names=F)
 
-###imputationÇÑ trainÀ¸·Î ´Ù½Ã ½ÃÀÛ
+###imputationí•œ trainìœ¼ë¡œ ë‹¤ì‹œ ì‹œìž‘
 train<-read.csv("train2.csv", sep=",", header=T)
 str(train)
 
-###¿¬¼ÓÇü º¯¼ö¸¸ correlation
+###ì—°ì†í˜• ë³€ìˆ˜ë§Œ correlation
 cont<-train[,c(2,6:8,10:15)] 
 
 
 cont.cor<-cor(cont) 
 corrplot(cont.cor, method="number",  type = "lower" ,addCoef.col = "black" ,  tl.col = "black", tl.srt = 45, diag = F) 
-	#target num_park 0.86 ÀÌ¿Ü ³ôÀº »ó°ü°è¼ö È®ÀÎ ¾ÈµÊ
+	#target num_park 0.86 ì´ì™¸ ë†’ì€ ìƒê´€ê³„ìˆ˜ í™•ì¸ ì•ˆë¨
 
-###¹üÁÖÇü º¯¼ö ºÐÆ÷ È®ÀÎ
+###ë²”ì£¼í˜• ë³€ìˆ˜ ë¶„í¬ í™•ì¸
 #  $ region     : chr
 #  $ type_im    : chr
 #  $ type_qual  : chr
 #  $ type_as    : chr
-table(train$ type_as)  #type_as º¯È¯ ÈÄ¿¡ type_new´Ù½Ã ¸¸µê(¾ÆÆÄÆ®/»ó°¡/º¹ÇÕ)
-table(train$region)    #Áö¿ª->±×´ë·Î
-table(train$type_im)   #±×´ë·Î
-table(train$type_qual) #1.FM¸¸ ÇÕÄ§ 2.HIµµ ÇÕÄ§
-	##STEP1. type_qual ====>MO¸¸ ÇÕÄ§
+table(train$ type_as)  #type_as ë³€í™˜ í›„ì— type_newë‹¤ì‹œ ë§Œë“¦(ì•„íŒŒíŠ¸/ìƒê°€/ë³µí•©)
+table(train$region)    #ì§€ì—­->ê·¸ëŒ€ë¡œ
+table(train$type_im)   #ê·¸ëŒ€ë¡œ
+table(train$type_qual) #1.FMë§Œ í•©ì¹¨ 2.HIë„ í•©ì¹¨
+	##STEP1. type_qual ====>MOë§Œ í•©ì¹¨
 boxplot(train$target)$stats
 quantile(train$target, probs=0.45) 
-quantile(train$target, probs=0.39)   #0.6 ÄöÅ¸ÀÏ Â÷ÀÌ -> ÇÕÄ¡Áö ¾ÊÀ½(FM)
+quantile(train$target, probs=0.39)   #0.6 í€€íƒ€ì¼ ì°¨ì´ -> í•©ì¹˜ì§€ ì•ŠìŒ(FM)
 quantile(train$target, probs=0.18)    #148 220       H
-quantile(train$target, probs=0.25)    #0.7ÄöÅ¸ÀÏÂ÷ÀÌ   I  --> ¾ÈÇÕÄ§
+quantile(train$target, probs=0.25)    #0.7í€€íƒ€ì¼ì°¨ì´   I  --> ì•ˆí•©ì¹¨
 
 
 
 #$ region     : chr
 table(train$region)
 
-train$region<-ifelse(train$region=="°­¿øµµ",1,(
-		ifelse(train$region=="°æ±âµµ",2, (
-		ifelse(train$region=="°æ»ó³²µµ",3, (
-		ifelse(train$region=="°æ»óºÏµµ",4, (
-		ifelse(train$region=="±¤ÁÖ±¤¿ª½Ã",5, (
-ifelse(train$region=="´ë±¸±¤¿ª½Ã",6,(
-ifelse(train$region=="´ëÀü±¤¿ª½Ã",7, (
-ifelse(train$region=="ºÎ»ê±¤¿ª½Ã",8, (
-ifelse(train$region=="¼­¿ïÆ¯º°½Ã",9, 
-(ifelse(train$region=="¼¼Á¾Æ¯º°ÀÚÄ¡½Ã",10, (
-ifelse(train$region=="¿ï»ê±¤¿ª½Ã",11,
-ifelse(train$region=="Àü¶ó³²µµ",12,(
-ifelse(train$region=="Àü¶óºÏµµ",13,
-ifelse(train$region=="Á¦ÁÖÆ¯º°ÀÚÄ¡µµ",14,
-ifelse(train$region=="ÃæÃ»³²µµ",15, 
+train$region<-ifelse(train$region=="ê°•ì›ë„",1,(
+		ifelse(train$region=="ê²½ê¸°ë„",2, (
+		ifelse(train$region=="ê²½ìƒë‚¨ë„",3, (
+		ifelse(train$region=="ê²½ìƒë¶ë„",4, (
+		ifelse(train$region=="ê´‘ì£¼ê´‘ì—­ì‹œ",5, (
+ifelse(train$region=="ëŒ€êµ¬ê´‘ì—­ì‹œ",6,(
+ifelse(train$region=="ëŒ€ì „ê´‘ì—­ì‹œ",7, (
+ifelse(train$region=="ë¶€ì‚°ê´‘ì—­ì‹œ",8, (
+ifelse(train$region=="ì„œìš¸íŠ¹ë³„ì‹œ",9, 
+(ifelse(train$region=="ì„¸ì¢…íŠ¹ë³„ìžì¹˜ì‹œ",10, (
+ifelse(train$region=="ìš¸ì‚°ê´‘ì—­ì‹œ",11,
+ifelse(train$region=="ì „ë¼ë‚¨ë„",12,(
+ifelse(train$region=="ì „ë¼ë¶ë„",13,
+ifelse(train$region=="ì œì£¼íŠ¹ë³„ìžì¹˜ë„",14,
+ifelse(train$region=="ì¶©ì²­ë‚¨ë„",15, 
 16   )  )    )))) )  )))))) )
 
 table(train$region)
 
 ##  $ type_im    : chr
 table(train$type_im)
-°ø°øºÐ¾ç °ø°øÀÓ´ë(10³â) °ø°øÀÓ´ë(50³â)  °ø°øÀÓ´ë(5³â) °ø°øÀÓ´ë(ºÐ³³) 
-±¹¹ÎÀÓ´ë ¿µ±¸ÀÓ´ë       ÀÓ´ë»ó°¡       Àå±âÀü¼¼       Çàº¹ÁÖÅÃ 
+ê³µê³µë¶„ì–‘ ê³µê³µìž„ëŒ€(10ë…„) ê³µê³µìž„ëŒ€(50ë…„)  ê³µê³µìž„ëŒ€(5ë…„) ê³µê³µìž„ëŒ€(ë¶„ë‚©) 
+êµ­ë¯¼ìž„ëŒ€ ì˜êµ¬ìž„ëŒ€       ìž„ëŒ€ìƒê°€       ìž¥ê¸°ì „ì„¸       í–‰ë³µì£¼íƒ 
    
-train$type_im<-ifelse(train$type_im=="°ø°øºÐ¾ç",1,(
-		ifelse(train$type_im=="°ø°øÀÓ´ë(10³â)",2, (
-		ifelse(train$type_im=="°ø°øÀÓ´ë(50³â)",3, (
-		ifelse(train$type_im=="°ø°øÀÓ´ë(5³â)",4, (
-		ifelse(train$type_im=="°ø°øÀÓ´ë(ºÐ³³)",5, (
-ifelse(train$type_im=="±¹¹ÎÀÓ´ë",6,(
-ifelse(train$type_im=="¿µ±¸ÀÓ´ë",7, (
-ifelse(train$type_im=="ÀÓ´ë»ó°¡",8, (
-ifelse(train$type_im=="Àå±âÀü¼¼",9, 10) )))))))))
+train$type_im<-ifelse(train$type_im=="ê³µê³µë¶„ì–‘",1,(
+		ifelse(train$type_im=="ê³µê³µìž„ëŒ€(10ë…„)",2, (
+		ifelse(train$type_im=="ê³µê³µìž„ëŒ€(50ë…„)",3, (
+		ifelse(train$type_im=="ê³µê³µìž„ëŒ€(5ë…„)",4, (
+		ifelse(train$type_im=="ê³µê³µìž„ëŒ€(ë¶„ë‚©)",5, (
+ifelse(train$type_im=="êµ­ë¯¼ìž„ëŒ€",6,(
+ifelse(train$type_im=="ì˜êµ¬ìž„ëŒ€",7, (
+ifelse(train$type_im=="ìž„ëŒ€ìƒê°€",8, (
+ifelse(train$type_im=="ìž¥ê¸°ì „ì„¸",9, 10) )))))))))
 table( train$type_im ) 
 
-## $type_qual    15°³->14°³·Î ÁÙÀÓ
+## $type_qual    15ê°œ->14ê°œë¡œ ì¤„ìž„
 class(table(train$type_qual)
   A    B    C    D    E    F    G    H    I    J    K    L    "MO"    N    O 
 
@@ -125,9 +125,9 @@ table( train$type_qual )
 
 ## $type_as
 table(train$type_as)
-train$type_as<-ifelse(train$type_as=="¾ÆÆÄÆ®",  0  , 1 )
+train$type_as<-ifelse(train$type_as=="ì•„íŒŒíŠ¸",  0  , 1 )
 ##############################################################
-##########´ÜÁö ÄÚµåº° ±×·ìÈ­ 
+##########ë‹¨ì§€ ì½”ë“œë³„ ê·¸ë£¹í™” 
 train<-groupby(by="code")
 ?groupby
 ##########
