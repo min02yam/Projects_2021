@@ -10,11 +10,11 @@ findCorrelation(trainage.cor )
 trainage.cor
 as.matrix( train.age[,c(16:37, 15)] )
 
-##»ó°ü°è¼ö°¡ ³ôÀº 
+##Â»Ã³Â°Ã¼Â°Ã¨Â¼Ã¶Â°Â¡ Â³Ã´Ã€Âº 
 
 agepca<-prcomp(trainage)  
 summary(agepca)
- # pc1°ú pc2»ç¿ë
+ # pc1Â°Ãº pc2Â»Ã§Â¿Ã«
 agepca
 agepca$x[,1:2] 
 biplot(agepca, main="Biplot")
